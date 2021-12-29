@@ -39,11 +39,13 @@ body {
 }
 
 .calculator {
-  background-color: #4000c7;
+  background-color: #e91b36;
+  border : solid 5px rgb(110, 27, 27);
+  border-bottom : solid 15px rgb(58, 14, 14);
   width: 350px;
   height: 500px;
   border-radius: 10px;
-  padding: 30px 20px;
+  padding: 25px 15px;
 }
 
 .calculator__display--bare {
@@ -162,10 +164,22 @@ body {
   right: 0px;
 }
 
+/* 버튼 이벤트 : hover , active */
 .clear:hover, .calculate:hover {
   background-color: greenyellow;
 }
 
-.number:hover,.operator:hover {
+.clear:active, .calculate:active{
+  color:greenyellow;
+}
+
+.number:hover,.operator:hover, .decimal:hover {
   background-color: darkgray;
 }
+
+.number:active, .operator:active, .decimal:active
+{
+  color:darkgray;
+}
+
+/*-------------------------------*/
