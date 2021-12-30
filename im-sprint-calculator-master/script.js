@@ -217,34 +217,30 @@ buttons.addEventListener('click', function (event) {
   //    previousNumber 와 opertor와 lastNumber 로 연산 후, 화면에 출력
   //    결과가 previousNumber가 되고 lastNumber는 비워 준다.
 
+  // 현재 상태는 첫항 과 마지막 항을 마지막 연산자로 연산
+  // 숫자영역 연산자영역 숫자영역 연산이 발생하고 값 저장 연산자영역
+  // first -> previous 연산자 스택 쌓이고 first => previous로 만들어 주기
+
 
   // ! 여기서부터 Advanced Challenge & Nightmare 과제룰 풀어주세요.
   if (target.matches('button')) {
     if (action === 'number') {
-      /*
-      if(isFirstNumber){
-        firstNum+=buttonContent;// 문자열로 추가
-        document.querySelector(".calculator__display--for-advanced").textContent = firstNum;
-      }else{
-        lastNum+=buttonContent;// 문자열로 추가
-        document.querySelector(".calculator__display--for-advanced").textContent = lastNum;
-      } */
       firstNum+=buttonContent;// 문자열로 추가
       document.querySelector(".calculator__display--for-advanced").textContent = firstNum;
     }
     if (action === 'operator') {
-      /*if(isFirstNumber){// 첫번째로 클릭한 연산자만 기록
-        operatorForAdvanced = buttonContent;
-        isFirstNumber=false;
-      }*/
+      if(previousKey==='number'){
+        if(previousNum===undefined){
+          previousNum = firstNum;
+        }else{
+          let n1 = Number(firstNum);
+          previousNum = calculate(Number(previousNum),operatorForAdvanced[operatorForAdvanced.length-1],n1);
+          peratorForAdvanced=[];
+        }
+      }
       operatorForAdvanced.push(buttonContent);
       //isFirstNumber=false;
-      if(previousNum===undefined){
-        previousNum = firstNum;
-      }else{
-        let n1 = Number(firstNum);
-        //previousNum = calculate(Number(previousNum),operatorForAdvanced[operatorForAdvanced.length-1],n1);
-      }
+      
       firstNum='';
       document.querySelector(".calculator__display--for-advanced").textContent = previousNum;
     }
@@ -264,8 +260,6 @@ buttons.addEventListener('click', function (event) {
       document.querySelector(".calculator__display--for-advanced").textContent = '0';
     }
     if (action === 'calculate') {
-      console.log("f ::: "+firstNum);
-      console.log("p ::: "+previousNum);
       let n1;
       if(previousNum===undefined){
         n1 = firstNum;
@@ -279,7 +273,6 @@ buttons.addEventListener('click', function (event) {
         n2 = Number(firstNum);
       }
       let resNumber;
-      console.log(operatorForAdvanced.length);
       if(operatorForAdvanced.length===0){
         resNumber = n1;
       }else if(previousKey==='calculate'){
@@ -289,7 +282,6 @@ buttons.addEventListener('click', function (event) {
       }
       document.querySelector(".calculator__display--for-advanced").textContent = resNumber;
       previousNum = resNumber;
-      console.log("res ::: "+previousNum);
     }
     previousKey = action;
   }
@@ -301,6 +293,3 @@ function resetForAdvanced(){
   previousNum=undefined;
   operatorForAdvanced=[];
 }
-
-
-
